@@ -1,4 +1,4 @@
-#do NOT import from app.py or controllers, this creates a circular dependency
+#do NOT import from app.py or controllers, or decoratorsthis creates a circular dependency
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from extensions import db

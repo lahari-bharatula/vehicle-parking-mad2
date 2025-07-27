@@ -116,7 +116,6 @@ class UserResource(Resource):
             }
         }, 200
 
-
     @jwt_required()
     def delete(self, user_id=None):
         if not user_id:
