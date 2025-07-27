@@ -1,0 +1,1 @@
+This is a project for managing vehicle parking. Using Flask+Vue and APIs
