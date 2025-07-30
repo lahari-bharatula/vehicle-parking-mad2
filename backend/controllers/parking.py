@@ -153,3 +153,5 @@ class ParkingResource(Resource):
         except Exception as e:
             db.session.rollback()
             return {"msg": f"Failed to delete lot: {str(e)}"}, 500
+
+
