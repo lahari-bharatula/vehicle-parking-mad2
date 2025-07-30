@@ -8,7 +8,7 @@ from sqlalchemy import select
 
 
 class ParkingResource(Resource):
-    @cache.cached(timeout=60, key_prefix=lambda: f"AvailableLots_{request.view_args.get('lot_id') or 'all'}")
+    @cache.cached(timeout=60, key_prefix="all_parking_lots")   
     @jwt_required()
     def get(self, lot_id=None):
         try:
@@ -78,13 +78,13 @@ class ParkingResource(Resource):
             db.session.add(ParkingSpot(lot_id=lot.id, status='A'))
         db.session.commit()
 
-        cache.delete_memoized(self.get)  # Clear cache after change
+        cache.delete("all_parking_lots")
         return {"message": "Parking lot and spots created", "lot_id": lot.id}, 201
 
     @admin_required
     def put(self, lot_id):
         try:
-            cache.delete_memoized(self.get)
+            cache.delete("all_parking_lots")
             if not lot_id:
                 return {"msg": "lot id is required to update"}, 400
             data = request.get_json()
@@ -129,7 +129,7 @@ class ParkingResource(Resource):
     @admin_required
     def delete(self, lot_id=None):
         try:
-            cache.delete_memoized(self.get)
+            cache.delete("all_parking_lots")
             if not lot_id:
                 return {"msg": "lot id is required to delete"}, 400
 

@@ -43,6 +43,9 @@ class ReservationResource(Resource):
 
             # No reservation_id → list reservations
             if user.role == 'admin':
+                cached_data = cache.get('AdminReservations')
+                if cached_data:
+                    return cached_data, 200
                 page = request.args.get('page', 1, type=int)
                 per_page = request.args.get('per_page', 10, type=int)
                 pagination = db.session.query(Reservation).paginate(page=page, per_page=per_page, error_out=False)
@@ -69,7 +72,7 @@ class ReservationResource(Resource):
                 }, 200
             else:
                 return {"reservations": result}, 200
-
+            
         except SQLAlchemyError as e:
             return {"msg": f"Database error: {str(e)}"}, 500
         except Exception as e:
@@ -77,6 +80,7 @@ class ReservationResource(Resource):
 
     @jwt_required()
     def post(self):
+        cache.delete('AvailableLots')
         try:
             user_email = get_jwt_identity()
             user = User.query.filter_by(email=user_email).first()
