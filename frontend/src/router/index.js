@@ -4,7 +4,7 @@ import SignupView from '../views/SignupView.vue'
 import UserdashView from '../views/UserdashView.vue'
 import BookingView from '@/views/BookingView.vue'
 import AdmindashView from '../views/AdmindashView.vue'
-
+import SummaryView from '@/views/SummaryView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +38,16 @@ const router = createRouter({
       path: '/admindash',
       name: 'admindash',
       component: AdmindashView
+    },
+    {
+      path: '/summary',
+      name: 'summary',
+      component: SummaryView
+    },
+    {
+      path: '/user/charts',
+      name: 'usersummary',
+      component: () => import('../views/Usersummary.vue'),
     }
   ],
 })

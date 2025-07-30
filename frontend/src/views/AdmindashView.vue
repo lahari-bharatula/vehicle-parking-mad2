@@ -4,6 +4,7 @@
     <div class="button-group">
       <button class="create-btn" @click="openCreateForm">Create New Lot</button>
       <button class="users-btn" @click="fetchAllUsers">View All Users</button>
+      <button class="summary-btn" @click="goToSummary">View Summary</button>
     </div>
     <table class="lot-table">
       <thead>
@@ -217,6 +218,9 @@ export default {
     this.selectedSpot = spotId;
     this.showSpotDetailsModal = true;
   }
+},
+  goToSummary() {
+  this.$router.push('/summary');
 },
     closeSpotDetailsModal() {
       this.showSpotDetailsModal = false;

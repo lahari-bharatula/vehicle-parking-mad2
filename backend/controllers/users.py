@@ -160,3 +160,36 @@ class loginResource(Resource):
                 "vehicleno":user.vehicleno
             }
         }, 200
+    
+from flask_restful import Resource
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from models import Reservation, ParkingLot, User
+
+from flask_restful import Resource
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from models import Reservation
+from datetime import datetime
+from collections import defaultdict
+
+class UserSummaryResource(Resource):
+    @jwt_required()
+    def get(self):
+        user_email = get_jwt_identity()
+        user = User.query.filter_by(email=user_email).first()
+
+        if not user:
+            return {"msg": "User not found"}, 404
+
+        reservations = Reservation.query.filter_by(user_id=user.id).all()
+        summary = defaultdict(float)
+
+        for res in reservations:
+            if res.parking_timestamp and res.leaving_timestamp:
+                date_str = res.parking_timestamp.date().isoformat()
+                duration_hours = (res.leaving_timestamp - res.parking_timestamp).total_seconds() / 3600
+                summary[date_str] += duration_hours
+
+        return {
+            "labels": list(summary.keys()),
+            "data": list(summary.values())
+        }, 200
