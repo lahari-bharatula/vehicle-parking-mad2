@@ -58,7 +58,7 @@ class UserResource(Resource):
 
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
-            return {'msg': "User already exists!"}, 400
+            return {'msg': "User already exists!"}, 409
 
 
         new_user = User(email=email, name=name, password=password, vehicleno=vehicleno, role=role)
@@ -154,7 +154,9 @@ class loginResource(Resource):
         return {
             "token": token,
             "user": {
+                "name": user.name,
                 "email": user.email,
-                "role": user.role
+                "role": user.role,
+                "vehicleno":user.vehicleno
             }
         }, 200
