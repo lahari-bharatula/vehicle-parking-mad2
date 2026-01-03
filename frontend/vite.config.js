@@ -10,7 +10,7 @@ export default defineConfig({
     vue(),
     // vueDevTools(),
   ],
-  base:"/vehicle-parking-mad2/"
+  base:"/vehicle-parking-mad2/",
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
