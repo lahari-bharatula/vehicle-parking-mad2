@@ -6,6 +6,9 @@ This project demonstrates a full-stack application architecture, with a deployed
 🔗 Live Demo (Frontend)
 
 https://lahari-bharatula.github.io/vehicle-parking-mad2/#/
+Paths: 
+/userdash : User Dashboard
+/admindash: Admin Dashboard
 
 
 ⚠️ Note:
