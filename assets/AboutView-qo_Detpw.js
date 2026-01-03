@@ -1,1 +1,0 @@
-import{_ as a,c as s,a as t,o as n}from"./index-CCnLxVaj.js";const o={},r={class:"about"};function c(i,e){return n(),s("div",r,e[0]||(e[0]=[t("h1",null,"ParCar is a parking management system, designed to make parking easy and hassle-free :)",-1)]))}const _=a(o,[["render",c]]);export{_ as default};
